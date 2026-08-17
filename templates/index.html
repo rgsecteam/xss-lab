@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero text-center p-5 rounded-4 mb-4">
+  <h1 class="display-5 fw-bold">Cookie & Session Hijacking Lab</h1>
+  <p class="lead text-muted">Practice detecting and exploiting reflected XSS across three difficulty levels — Low, Medium, High.</p>
+  <div class="mt-4">
+    <a href="{{ url_for('register') }}" class="btn btn-danger btn-lg me-2">Create Account</a>
+    <a href="{{ url_for('login') }}" class="btn btn-outline-secondary btn-lg">Login</a>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="card-title">1. Register & Login</h5>
+        <p class="card-text text-muted">Create a victim account and an attacker account to simulate a real-world takeover.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="card-title">2. Find the XSS</h5>
+        <p class="card-text text-muted">Each level filters user input differently. Find the gap in the filter and pop <code>alert(document.cookie)</code>.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="card-title">3. Hijack the Session</h5>
+        <p class="card-text text-muted">Take the stolen token to the Hijack Simulator and log in as the victim — full account takeover.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

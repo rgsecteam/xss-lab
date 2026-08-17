@@ -1,0 +1,9 @@
+services:
+  rgsecurity-xss-lab:
+    build: .
+    container_name: rgsecurity-xss-lab
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    # Recommended: no internet access needed for the app itself
+    # network_mode: "bridge"

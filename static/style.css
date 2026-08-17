@@ -1,0 +1,234 @@
+/* ==========================================================================
+   RGSecurityTeam — Cyberpunk Wallet Theme
+   ========================================================================== */
+
+:root {
+  --bg-void:      #070b10;
+  --bg-panel:     #0d141c;
+  --bg-panel-2:   #111a24;
+  --bg-card:      #0f1720;
+  --line:         #1c2a36;
+  --mint:         #2be3b0;
+  --mint-dim:     #17493d;
+  --cyan:         #23d5f0;
+  --amber:        #f5a623;
+  --danger:       #ff4d6d;
+  --text-hi:      #e8f4f2;
+  --text-lo:      #7d92a0;
+  --font-mono: 'JetBrains Mono', 'Space Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(43,227,176,.06), transparent 40%),
+    radial-gradient(circle at 90% 20%, rgba(35,213,240,.06), transparent 45%),
+    var(--bg-void);
+  color: var(--text-hi);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+}
+
+a { text-decoration: none; }
+
+/* ---------------- Navbar ---------------- */
+.app-navbar {
+  background: linear-gradient(90deg, #0a1016, #0d1a1a);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 0 rgba(43,227,176,.15);
+}
+.app-navbar .navbar-brand {
+  font-family: var(--font-mono);
+  letter-spacing: .5px;
+}
+.app-navbar .navbar-brand .text-danger { color: var(--mint) !important; }
+.app-navbar .badge.bg-danger { background: var(--danger) !important; }
+
+/* ---------------- Buttons ---------------- */
+.btn-danger, .btn-dark {
+  background: linear-gradient(135deg, var(--mint), var(--cyan)) !important;
+  border: none !important;
+  color: #06120f !important;
+  font-weight: 700;
+  letter-spacing: .3px;
+  box-shadow: 0 0 18px rgba(43,227,176,.25);
+}
+.btn-danger:hover, .btn-dark:hover { filter: brightness(1.1); }
+
+.btn-outline-light, .btn-outline-secondary, .btn-outline-danger, .btn-outline-warning {
+  border-color: var(--line) !important;
+  color: var(--text-hi) !important;
+  background: transparent !important;
+}
+.btn-outline-light:hover, .btn-outline-secondary:hover,
+.btn-outline-danger:hover, .btn-outline-warning:hover {
+  border-color: var(--mint) !important;
+  color: var(--mint) !important;
+  box-shadow: 0 0 12px rgba(43,227,176,.2);
+}
+
+.btn-success { background: linear-gradient(135deg,#2be3b0,#17c98f) !important; border:none !important; color:#06120f !important; font-weight:700; }
+.btn-warning { background: linear-gradient(135deg,#f5a623,#e08e00) !important; border:none !important; color:#1a1200 !important; font-weight:700; }
+
+/* ---------------- Cards / panels ---------------- */
+.card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 14px !important;
+  color: var(--text-hi);
+}
+.card .text-muted { color: var(--text-lo) !important; }
+.form-control, .form-select {
+  background: var(--bg-panel) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--text-hi) !important;
+  font-family: var(--font-mono);
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--mint) !important;
+  box-shadow: 0 0 0 .2rem rgba(43,227,176,.15) !important;
+}
+.form-control::placeholder { color: var(--text-lo); opacity: .7; }
+.form-label { color: var(--text-lo); font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; }
+
+code {
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  color: var(--mint);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.alert-light, .alert-danger {
+  background: var(--bg-panel) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--text-hi) !important;
+}
+.alert-danger { border-color: rgba(255,77,109,.4) !important; color: var(--danger) !important; }
+
+/* ---------------- Hero ---------------- */
+.hero {
+  background:
+    linear-gradient(135deg, rgba(43,227,176,.10), rgba(35,213,240,.06)),
+    var(--bg-panel);
+  border: 1px solid var(--line);
+  color: var(--text-hi);
+}
+.hero .text-muted { color: var(--text-lo) !important; }
+
+/* ---------------- Level cards (legacy /levels page) ---------------- */
+.level-card { transition: transform .15s ease, box-shadow .15s ease; }
+.level-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(43,227,176,.12) !important; }
+.level-low { border-top: 3px solid var(--mint) !important; }
+.level-medium { border-top: 3px solid var(--amber) !important; }
+.level-high { border-top: 3px solid var(--danger) !important; }
+
+/* ==========================================================================
+   Wallet App Shell
+   ========================================================================== */
+
+.wallet-shell {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .wallet-shell { grid-template-columns: 1fr; }
+}
+
+/* -------- Balance / header card -------- */
+.balance-card {
+  background: linear-gradient(135deg, var(--bg-panel-2), var(--bg-panel));
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.5rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+.balance-card::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 100% 0%, rgba(43,227,176,.12), transparent 55%);
+  pointer-events: none;
+}
+.balance-card .label { color: var(--text-lo); font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; }
+.balance-card .amount { font-size: 2.1rem; font-weight: 700; color: var(--mint); text-shadow: 0 0 18px rgba(43,227,176,.35); }
+.balance-card .addr { color: var(--text-lo); font-size: .8rem; }
+
+/* -------- Security Level widget (left column, screenshot style) -------- */
+.seclevel {
+  background: var(--bg-panel);
+  border: 1px solid var(--mint-dim);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 0 24px rgba(43,227,176,.06);
+}
+.seclevel-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .9rem 1rem;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  user-select: none;
+}
+.seclevel-head .title {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .78rem; letter-spacing: .12em; color: var(--text-hi); text-transform: uppercase;
+}
+.seclevel-head .dot { color: var(--mint); font-size: 1.1rem; line-height: 0; }
+.seclevel-badge {
+  font-size: .72rem; font-weight: 700; letter-spacing: .05em;
+  padding: .2rem .55rem; border-radius: 999px;
+  background: rgba(245,166,35,.15); color: var(--amber); border: 1px solid rgba(245,166,35,.4);
+}
+.seclevel-badge.lvl-low { background: rgba(43,227,176,.15); color: var(--mint); border-color: rgba(43,227,176,.4); }
+.seclevel-badge.lvl-high { background: rgba(255,77,109,.15); color: var(--danger); border-color: rgba(255,77,109,.4); }
+.seclevel-caret { color: var(--text-lo); margin-left: .4rem; font-size: .7rem; }
+
+.seclevel-body { padding: .4rem; }
+.seclevel-item {
+  display: flex; align-items: flex-start; gap: .7rem;
+  padding: .65rem .7rem;
+  border-radius: 10px;
+  margin-bottom: .3rem;
+  color: var(--text-hi);
+  border: 1px solid transparent;
+}
+.seclevel-item:hover { border-color: var(--line); background: rgba(255,255,255,.02); }
+.seclevel-item .num { color: var(--text-lo); font-size: .75rem; padding-top: .1rem; min-width: 1.4rem; }
+.seclevel-item .name { font-size: .82rem; font-weight: 700; letter-spacing: .04em; }
+.seclevel-item .desc { color: var(--text-lo); font-size: .74rem; margin-top: .1rem; line-height: 1.3; }
+.seclevel-item .check { margin-left: auto; color: var(--amber); }
+
+.seclevel-item.active {
+  background: rgba(245,166,35,.08);
+  border-color: rgba(245,166,35,.35);
+}
+.seclevel-item.active .name { color: var(--amber); }
+.seclevel-item.level-tag-low.active { background: rgba(43,227,176,.08); border-color: rgba(43,227,176,.35); }
+.seclevel-item.level-tag-low.active .name { color: var(--mint); }
+.seclevel-item.level-tag-high.active { background: rgba(255,77,109,.08); border-color: rgba(255,77,109,.35); }
+.seclevel-item.level-tag-high.active .name { color: var(--danger); }
+
+/* -------- Wallet feature cards (vulnerable inputs, reframed) -------- */
+.wallet-card { padding: 1.25rem 1.4rem; }
+.wallet-card h6 {
+  display: flex; align-items: center; gap: .5rem;
+  color: var(--text-hi); font-size: .85rem; letter-spacing: .04em; text-transform: uppercase;
+  margin-bottom: .9rem;
+}
+.wallet-card .hint { color: var(--text-lo); font-size: .76rem; margin-top: .5rem; }
+.tx-row {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: .6rem .8rem;
+  margin-bottom: .5rem;
+  background: var(--bg-panel);
+  font-size: .85rem;
+}
+.tx-row strong { color: var(--mint); }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-void); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 6px; }

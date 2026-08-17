@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <h4 class="mb-1">🕵️ Session Hijack Simulator</h4>
+        <p class="text-muted small">Paste a stolen <code>auth_token</code> cookie value (e.g. captured via <code>alert(document.cookie)</code> in one of the levels) to log in as that victim.</p>
+        {% if result %}<div class="alert alert-danger py-2">{{ result }}</div>{% endif %}
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Stolen auth_token</label>
+            <input type="text" name="token" class="form-control" placeholder="e.g. 3f9a1c...">
+          </div>
+          <button type="submit" class="btn btn-warning w-100">Hijack Session</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

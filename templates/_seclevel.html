@@ -1,0 +1,40 @@
+{# Expects: level (current level string: low/medium/high) #}
+<div class="seclevel">
+  <details {% if open_default is not defined or open_default %}open{% endif %}>
+    <summary class="seclevel-head" style="list-style: none;">
+      <span class="title"><span class="dot">◎</span> Security Level</span>
+      <span class="d-flex align-items-center">
+        <span class="seclevel-badge lvl-{{ level }}">
+          {% if level == 'low' %}LOW{% elif level == 'medium' %}MED{% else %}HIGH{% endif %}
+        </span>
+        <span class="seclevel-caret">▾</span>
+      </span>
+    </summary>
+    <div class="seclevel-body">
+      <a href="{{ url_for('dashboard', level='low') }}" class="seclevel-item level-tag-low {% if level=='low' %}active{% endif %}">
+        <span class="num">01</span>
+        <span class="flex-grow-1">
+          <div class="name">LOW</div>
+          <div class="desc">No filtering — any input accepted</div>
+        </span>
+        {% if level == 'low' %}<span class="check">✓</span>{% endif %}
+      </a>
+      <a href="{{ url_for('dashboard', level='medium') }}" class="seclevel-item level-tag-medium {% if level=='medium' %}active{% endif %}">
+        <span class="num">02</span>
+        <span class="flex-grow-1">
+          <div class="name">MEDIUM</div>
+          <div class="desc">Tag check only — reform to bypass</div>
+        </span>
+        {% if level == 'medium' %}<span class="check">✓</span>{% endif %}
+      </a>
+      <a href="{{ url_for('dashboard', level='high') }}" class="seclevel-item level-tag-high {% if level=='high' %}active{% endif %}">
+        <span class="num">03</span>
+        <span class="flex-grow-1">
+          <div class="name">HIGH</div>
+          <div class="desc">Blacklist + single-pass check</div>
+        </span>
+        {% if level == 'high' %}<span class="check">✓</span>{% endif %}
+      </a>
+    </div>
+  </details>
+</div>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="wallet-shell">
+  <div>
+    <div class="card wallet-card">
+      <h6>◈ Wallet</h6>
+      <p class="mb-1" style="color:var(--text-lo); font-size:.8rem;">Signed in as</p>
+      <p class="mb-0" style="color:var(--mint); font-weight:700;">{{ username }}</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="balance-card mb-4">
+      <div class="label">Choose a Security Level</div>
+      <div class="amount" style="font-size:1.3rem;">Pick a difficulty to enter the wallet dashboard</div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-4">
+        <a href="{{ url_for('dashboard', level='low') }}" class="text-decoration-none">
+          <div class="card wallet-card h-100 level-card level-low">
+            <span class="seclevel-badge lvl-low mb-2" style="width:fit-content;">LOW</span>
+            <h6 class="mb-1" style="color:var(--text-hi);">Beginner</h6>
+            <p class="hint">No filtering at all — raw reflected XSS.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="{{ url_for('dashboard', level='medium') }}" class="text-decoration-none">
+          <div class="card wallet-card h-100 level-card level-medium">
+            <span class="seclevel-badge lvl-medium mb-2" style="width:fit-content;">MED</span>
+            <h6 class="mb-1" style="color:var(--text-hi);">Intermediate</h6>
+            <p class="hint">Basic tag filter — find what it forgets.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="{{ url_for('dashboard', level='high') }}" class="text-decoration-none">
+          <div class="card wallet-card h-100 level-card level-high">
+            <span class="seclevel-badge lvl-high mb-2" style="width:fit-content;">HIGH</span>
+            <h6 class="mb-1" style="color:var(--text-hi);">Advanced</h6>
+            <p class="hint">Blacklist filter, single pass — reform the tag.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

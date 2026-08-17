@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="wallet-shell">
+
+  <!-- LEFT COLUMN -->
+  <div>
+    {% include "_seclevel.html" %}
+
+    <div class="card wallet-card mt-3">
+      <h6>◈ Account</h6>
+      <p class="mb-1" style="color:var(--text-lo); font-size:.8rem;">Signed in as</p>
+      <p class="mb-2" style="color:var(--mint); font-weight:700;">{{ username }}</p>
+      <p class="hint mb-0">auth_token cookie is active in this browser. This lab intentionally leaves it JS-readable.</p>
+      <a href="{{ url_for('levels') }}" class="btn btn-outline-secondary btn-sm w-100 mt-3">← Back to levels</a>
+      <a href="{{ url_for('hijack') }}" class="btn btn-outline-warning btn-sm w-100 mt-2">Open Hijack Simulator</a>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div>
+
+    <div class="balance-card mb-3">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <div class="label">Total Balance</div>
+          <div class="amount">12.4821 <span style="font-size:1rem; color:var(--text-lo);">ETH</span></div>
+          <div class="addr mt-1">0x9f2A...{{ username[:4]|upper }}</div>
+        </div>
+        <span class="seclevel-badge lvl-{{ level }}">
+          {% if level == 'low' %}LOW{% elif level == 'medium' %}MED{% else %}HIGH{% endif %} SECURITY
+        </span>
+      </div>
+    </div>
+
+    <!-- Vector 1: search bar -> "Search Transactions" -->
+    <div class="card wallet-card mb-3">
+      <h6>🔍 Search Transactions</h6>
+      <form method="get" class="d-flex gap-2 mb-2">
+        <input type="hidden" name="cat" value="{{ cat_raw }}">
+        <input type="text" name="q" class="form-control" placeholder="tx hash, address, memo..." value="{{ q_raw }}">
+        <button type="submit" class="btn btn-dark">Search</button>
+      </form>
+      {% if q_raw %}
+      <div class="tx-row">
+        Results for: {{ q_result|safe }}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Vector 2: category dropdown -> "Network" selector -->
+    <div class="card wallet-card mb-3">
+      <h6>🌐 Network</h6>
+      <form method="get" class="d-flex gap-2 mb-2">
+        <input type="hidden" name="q" value="{{ q_raw }}">
+        <select name="cat" class="form-select" onchange="this.form.submit()">
+          <option value="" {% if not cat_raw %}selected{% endif %}>-- select network --</option>
+          <option value="ethereum" {% if cat_raw == 'ethereum' %}selected{% endif %}>Ethereum</option>
+          <option value="polygon" {% if cat_raw == 'polygon' %}selected{% endif %}>Polygon</option>
+          <option value="arbitrum" {% if cat_raw == 'arbitrum' %}selected{% endif %}>Arbitrum</option>
+        </select>
+      </form>
+      {% if cat_raw %}
+      <div class="tx-row">
+        Active network: {{ cat_result|safe }}
+      </div>
+      {% endif %}
+      <p class="hint mb-0">UI only offers 3 fixed networks — but the underlying request parameter can be edited directly.</p>
+    </div>
+
+    <!-- Vector 3: comment box -> "Transaction Memo" -->
+    <div class="card wallet-card mb-3">
+      <h6>📝 Add Transaction Memo</h6>
+      <form method="post" class="mb-2">
+        <textarea name="comment" class="form-control mb-2" rows="2" placeholder="Note for this transaction..."></textarea>
+        <button type="submit" class="btn btn-dark">Save Memo</button>
+      </form>
+      {% for c in comments %}
+        <div class="tx-row"><strong>{{ c.user }}</strong> — {{ c.text|safe }}</div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+{% endblock %}
